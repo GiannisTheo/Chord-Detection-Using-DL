@@ -54,8 +54,15 @@ def make_frame_labels(labels_path,chords_set):
     all_labels.append(onset_labels)
   return all_labels
 
-def get_sample_from_song(sec):
-  pass
+def get_sample_from_song(sec,song, chords):
+  #print('song dimensions are ',song.shape)
+  time_frames = librosa.time_to_frames(sec)
+  #print('time frames corresponding to sec ',time_frames)
+  start = random.randint(0,song.shape[1]-time_frames)
+  #print('print starting frame to sample ',start)
+  sample_x = song[:,start:start+time_frames]
+  sample_y = chords[:,start:start+time_frames]
+  return sample_x,sample_y
 
 
 
