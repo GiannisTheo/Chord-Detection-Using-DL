@@ -64,6 +64,20 @@ def get_sample_from_song(sec,song, chords):
   sample_y = chords[:,start:start+time_frames]
   return sample_x,sample_y
 
+def make_stft_dataset(songs_path):
+    cwd = os.getcwd()
+    stft_dir = os.path.join(cwd,'stft_dataset')
+    if not os.path.isdir(stft_dir):
+        os.makedirs(stft_dir)
+    for file in os.listdir(songs_path):
+        waveform,sr = librosa.load(os.path.join(songs_path,file))
+        stft = librosa.stft(waveform)
+        stft_mag = np.abs(stft)
+        np.save(os.path.join(stft_dir,file[:-4]),stft_mag)
+        print("Saved {file_name} stft".format(file_name = file[:-4]))
+    return 
+
+
 
 
 
