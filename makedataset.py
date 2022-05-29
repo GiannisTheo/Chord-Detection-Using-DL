@@ -46,7 +46,7 @@ def make_frame_labels(labels_path,chords_set):
     contents = pd.read_csv(path,delim_whitespace=True).values
     finish_time = contents[-1,1]
     time_frames = librosa.time_to_frames(finish_time)
-    onset_labels = np.zeros((time_frames,len(chords_set)))
+    onset_labels = np.zeros((len(chords_set),time_frames))
     for content in contents:
       start_frame = librosa.time_to_frames(content[0])
       end_frame = librosa.time_to_frames(content[1])
